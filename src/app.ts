@@ -1,6 +1,6 @@
 // ==============================================
-// PaySat Login — Modular Auth Flow
-// Selection -> Biometric / PIN / Password -> Success
+// PaySat Login — Full Screen Immersive Logic
+// Purely interactive demo without automatic timeouts
 // ==============================================
 
 // --- Types ---
@@ -13,9 +13,6 @@ interface AppState {
 }
 
 const PIN_LENGTH = 6;
-const DEMO_USER = 'alejandro';
-const DEMO_PIN = '123456';
-const DEMO_PASS = 'password123';
 
 // --- DOM References ---
 
@@ -45,6 +42,7 @@ const btnBackFromPassword = qs<HTMLButtonElement>('#btnBackFromPassword');
 // Biometric UI
 const bioIconWrap = qs<HTMLElement>('#bioIconWrap');
 const bioStatus = qs<HTMLElement>('#bioStatus');
+const btnSimulateBio = qs<HTMLButtonElement>('#btnSimulateBio');
 
 // PIN UI
 const pinDots = qs<HTMLElement>('#pinDots');
@@ -57,9 +55,9 @@ const usernameField = qs<HTMLElement>('#usernameField');
 const passwordField = qs<HTMLElement>('#passwordField');
 const usernameInput = qs<HTMLInputElement>('#usernameInput');
 const passwordInput = qs<HTMLInputElement>('#passwordInput');
-const btnSubmitPassword = qs<HTMLButtonElement>('#btnSubmitPassword');
 const passwordGlobalError = qs<HTMLElement>('#passwordGlobalError');
 const passwordGlobalErrorText = qs<HTMLElement>('#passwordGlobalErrorText');
+const btnSubmitPassword = qs<HTMLButtonElement>('#btnSubmitPassword');
 
 // --- State & Navigation ---
 
@@ -90,9 +88,10 @@ function navigateToStep(next: LoginState, reverse = false) {
     currentEl.classList.remove('step--active');
     currentEl.classList.add('step--exit');
     
+    // Quick timeout to allow the exit animation to process
     setTimeout(() => {
       currentEl.classList.remove('step--exit');
-    }, 400);
+    }, 500);
 
     nextEl.classList.add('step--active');
   }
@@ -100,37 +99,34 @@ function navigateToStep(next: LoginState, reverse = false) {
   state.currentStep = next;
 
   // Lifecycle hooks
-  if (next === 'biometric') startBiometricScan();
+  if (next === 'biometric') resetBiometric();
   if (next === 'pin') resetPIN();
   if (next === 'password') resetPasswordForm();
 }
 
-// --- Biometric Logic ---
+// --- Biometric Logic (Manual Simulation) ---
 
-let bioTimeout: ReturnType<typeof setTimeout>;
+function resetBiometric() {
+  bioIconWrap.parentElement?.classList.remove('bio-verify--scanning', 'bio-verify--success');
+  bioStatus.textContent = 'Asegúrate de estar en un lugar iluminado';
+  btnSimulateBio.style.display = 'block';
+  btnSimulateBio.textContent = 'Presionar para registrar';
+}
 
-function startBiometricScan() {
-  clearTimeout(bioTimeout);
+function handleBiometricSimulation() {
   bioIconWrap.parentElement?.classList.add('bio-verify--scanning');
-  bioIconWrap.parentElement?.classList.remove('bio-verify--success');
-  bioStatus.textContent = 'Mira la cámara o pon tu huella';
+  bioStatus.textContent = 'Verificando identidad...';
+  btnSimulateBio.style.display = 'none';
 
-  // Simulate scan taking 2 seconds
-  bioTimeout = setTimeout(() => {
+  setTimeout(() => {
     bioIconWrap.parentElement?.classList.remove('bio-verify--scanning');
     bioIconWrap.parentElement?.classList.add('bio-verify--success');
     bioStatus.textContent = 'Identidad confirmada';
     
-    // Auto proceed to success after a brief pause
     setTimeout(() => {
       navigateToStep('success');
-    }, 600);
-  }, 2000);
-}
-
-function cancelBiometricScan() {
-  clearTimeout(bioTimeout);
-  bioIconWrap.parentElement?.classList.remove('bio-verify--scanning', 'bio-verify--success');
+    }, 800);
+  }, 1500);
 }
 
 // --- PIN Logic ---
@@ -150,15 +146,6 @@ function updatePinUI() {
   pinError.classList.remove('pin-error--visible');
 }
 
-function showPinError() {
-  const dots = Array.from(pinDots.querySelectorAll('.pin-dot'));
-  dots.forEach(dot => {
-    dot.classList.add('pin-dot--error');
-    dot.classList.remove('pin-dot--filled');
-  });
-  pinError.classList.add('pin-error--visible');
-}
-
 function resetPIN() {
   state.pinDigits = '';
   updatePinUI();
@@ -171,17 +158,10 @@ function handlePinDigit(digit: string) {
   updatePinUI();
 
   if (state.pinDigits.length === PIN_LENGTH) {
-    // Validate
+    // Automatically accept any 6 digits to keep the flow uninterrupted
     setTimeout(() => {
-      if (state.pinDigits === DEMO_PIN) {
-        navigateToStep('success');
-      } else {
-        showPinError();
-        setTimeout(() => {
-          resetPIN();
-        }, 600);
-      }
-    }, 200);
+      navigateToStep('success');
+    }, 300);
   }
 }
 
@@ -200,77 +180,54 @@ function resetPasswordForm() {
   usernameField.classList.remove('field--error');
   passwordField.classList.remove('field--error');
   passwordGlobalError.classList.remove('field__error--visible');
-  setButtonLoading(btnSubmitPassword, false, 'Ingresar');
+  btnSubmitPassword.querySelector('.btn__text')!.textContent = 'Ingresar de forma segura';
 }
 
 function handlePasswordSubmit(e: Event) {
   e.preventDefault();
 
-  const user = usernameInput.value.trim().toLowerCase();
+  const user = usernameInput.value.trim();
   const pass = passwordInput.value;
 
-  // Clear errors
   usernameField.classList.remove('field--error');
   passwordField.classList.remove('field--error');
   passwordGlobalError.classList.remove('field__error--visible');
 
-  // Simple validation
+  // Interactive validation
   if (!user || !pass) {
     if (!user) usernameField.classList.add('field--error');
     if (!pass) passwordField.classList.add('field--error');
-    passwordGlobalErrorText.textContent = 'Completa todos los campos.';
+    passwordGlobalErrorText.textContent = 'Por favor, completa ambos campos.';
     passwordGlobalError.classList.add('field__error--visible');
     return;
   }
 
-  setButtonLoading(btnSubmitPassword, true);
-
-  // Simulate network request
+  // Simulate success
+  btnSubmitPassword.querySelector('.btn__text')!.textContent = 'Verificando...';
+  
   setTimeout(() => {
-    setButtonLoading(btnSubmitPassword, false, 'Ingresar');
-
-    if (user === DEMO_USER && pass === DEMO_PASS) {
-      navigateToStep('success');
-    } else {
-      passwordField.classList.add('field--error');
-      passwordGlobalErrorText.textContent = 'Usuario o contraseña incorrectos.';
-      passwordGlobalError.classList.add('field__error--visible');
-    }
-  }, 1000);
-}
-
-function setButtonLoading(btn: HTMLButtonElement, isLoading: boolean, text = '') {
-  if (isLoading) {
-    btn.classList.add('btn--loading');
-    btn.disabled = true;
-  } else {
-    btn.classList.remove('btn--loading');
-    btn.disabled = false;
-    if (text) {
-      const textSpan = btn.querySelector('.btn__text');
-      if (textSpan) textSpan.textContent = text;
-    }
-  }
+    navigateToStep('success');
+  }, 800);
 }
 
 // --- Event Listeners ---
 
 document.addEventListener('DOMContentLoaded', () => {
   
-  // Selection
+  // Method Selection
   btnGoBio.addEventListener('click', () => navigateToStep('biometric'));
   btnGoPIN.addEventListener('click', () => navigateToStep('pin'));
   btnGoPassword.addEventListener('click', () => navigateToStep('password'));
 
-  // Back Navigation
-  btnBackFromBio.addEventListener('click', () => {
-    cancelBiometricScan();
-    navigateToStep('selection', true);
-  });
+  // Global Back Navigation
+  btnBackFromBio.addEventListener('click', () => navigateToStep('selection', true));
   btnBackFromPIN.addEventListener('click', () => navigateToStep('selection', true));
   btnBackFromPassword.addEventListener('click', () => navigateToStep('selection', true));
 
-  // PIN
+  // Biometric interaction
+  btnSimulateBio.addEventListener('click', handleBiometricSimulation);
+
+  // PIN interaction
   document.querySelectorAll('.numpad__key[data-key]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const el = e.currentTarget as HTMLButtonElement;
@@ -279,6 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   btnPinDelete.addEventListener('click', handleDeletePin);
 
-  // Password
+  // Password interaction
   passwordForm.addEventListener('submit', handlePasswordSubmit);
 });

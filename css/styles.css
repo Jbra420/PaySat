@@ -1,35 +1,35 @@
 /* ==============================================
-   PaySat Login — Dark & Gold Theme (Bottom Sheet)
+   PaySat Login — Full Screen Immersive Theme
    ============================================== */
 
 /* --- 1. CSS Variables & Reset --- */
 :root {
   /* Colors */
-  --bg-main: #000000;
-  --bg-surface: #141414;
-  --bg-elevated: #1F1F1F;
+  --bg-main: #050505;
+  --bg-surface: #111111;
+  --bg-elevated: #1A1A1A;
   --bg-input: #0A0A0A;
   
   --accent-gold: #DCA834;
   --accent-gold-hover: #EBC054;
-  --accent-gold-alpha: rgba(220, 168, 52, 0.15);
+  --accent-gold-alpha: rgba(220, 168, 52, 0.1);
+  --accent-gold-glow: rgba(220, 168, 52, 0.2);
   
   --text-primary: #FFFFFF;
-  --text-secondary: #A0A0A0;
+  --text-secondary: #9CA3AF;
   --text-muted: #6B7280;
   
   --error: #EF4444;
-  --error-alpha: rgba(239, 68, 68, 0.1);
   --success: #10B981;
 
-  --border-light: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
 
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
   /* Layout */
-  --sheet-radius: 28px;
-  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.2s ease-out;
 }
 
@@ -47,7 +47,7 @@ html, body {
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* Prevent body scroll, everything is fixed */
+  overflow: hidden; 
   overscroll-behavior-y: none;
 }
 
@@ -72,7 +72,7 @@ input {
 .bg-layer {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% -20%, rgba(220, 168, 52, 0.08) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% -10%, rgba(220, 168, 52, 0.15) 0%, rgba(5,5,5,0) 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -87,28 +87,70 @@ input {
   display: flex;
   flex-direction: column;
   z-index: 1;
+  overflow: hidden;
 }
 
-/* --- 3. Header --- */
+/* --- 3. Step System (Full Screen) --- */
+
+.step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main); /* solid back for crossfade */
+  padding: env(safe-area-inset-top) 24px calc(24px + env(safe-area-inset-bottom)) 24px;
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(40px);
+  transition: opacity var(--transition-smooth), transform var(--transition-smooth), visibility var(--transition-smooth);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Base step selection has no background so we see the glow */
+#stepSelection {
+  background: transparent;
+  transform: scale(0.95);
+}
+
+.step--active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.step--exit {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+#stepSelection.step--exit {
+  transform: scale(0.95);
+}
+
+/* --- 4. Brand Header --- */
 
 .app-header {
-  flex: 1;
+  padding-top: 48px;
+  padding-bottom: 24px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding-bottom: 2rem; /* visually push it up a bit */
+  align-items: center;
+  animation: fadeInDown 0.8s var(--transition-smooth);
 }
 
 .brand {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  animation: fadeInDown 0.8s var(--transition-smooth);
+  gap: 16px;
 }
 
 .brand__text {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   color: var(--text-primary);
@@ -119,71 +161,7 @@ input {
   color: var(--accent-gold);
 }
 
-/* --- 4. Bottom Sheet --- */
-
-.bottom-sheet {
-  position: relative;
-  background-color: var(--bg-surface);
-  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
-  width: 100%;
-  min-height: 400px;
-  max-height: 85vh;
-  padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  animation: slideUpSheet 0.6s var(--transition-smooth);
-  /* The sheet itself is static in size, steps transition inside */
-  overflow: hidden; 
-}
-
-.bottom-sheet__handle {
-  width: 36px;
-  height: 4px;
-  background-color: var(--border-light);
-  border-radius: 2px;
-  margin: 0 auto 24px auto;
-}
-
-/* --- 5. Step System --- */
-
-.step {
-  position: absolute;
-  top: 60px; /* Below handle */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 0 24px calc(24px + env(safe-area-inset-bottom));
-  display: flex;
-  flex-direction: column;
-  
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(20px);
-  transition: opacity var(--transition-smooth), transform var(--transition-smooth), visibility var(--transition-smooth);
-  pointer-events: none;
-  overflow-y: auto;
-}
-
-.step--active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-  pointer-events: auto;
-  z-index: 2;
-}
-
-.step--exit {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-.step__top {
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-  min-height: 32px;
-}
+/* --- 5. Shared Step Content --- */
 
 .step__content {
   flex: 1;
@@ -202,150 +180,143 @@ input {
   text-align: center;
 }
 
-/* --- 6. Typography Elements --- */
-
-.greeting {
-  margin-bottom: 32px;
-}
-.greeting__title {
-  font-size: 1.75rem;
+.welcome-title {
+  font-size: 2rem;
   font-weight: 600;
-  color: var(--text-primary);
   margin-bottom: 8px;
+  text-align: center;
 }
-.greeting__subtitle {
+
+.welcome-subtitle {
   font-size: 1rem;
   color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 48px;
 }
 
-.user-greeting {
+/* --- 6. Top Nav (For internal modules) --- */
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  padding-top: 24px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.btn-back {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  margin-left: -8px;
+  transition: all var(--transition-fast);
+}
+
+.btn-back:active {
+  background: var(--bg-elevated);
+  transform: scale(0.95);
+}
+
+.top-nav__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+/* --- 7. Interactive Cards (Selection) --- */
+
+.cards-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 32px;
-}
-.user-greeting__avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--bg-elevated);
-  border: 2px solid var(--accent-gold);
-  color: var(--accent-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.user-greeting__title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.user-greeting__subtitle {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
+  gap: 16px;
+  padding: 0 8px;
 }
 
-/* --- 7. Buttons --- */
-
-.btn {
+.card-method {
   position: relative;
   width: 100%;
-  height: 52px;
-  border-radius: 14px;
-  font-weight: 600;
-  font-size: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 24px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  text-align: left;
   transition: all var(--transition-fast);
   overflow: hidden;
 }
 
-.btn--primary {
-  background-color: var(--accent-gold);
-  color: #000000;
-}
-.btn--primary:active {
-  transform: scale(0.98);
-  background-color: var(--accent-gold-hover);
-}
-
-/* Loading state */
-.btn__spinner {
-  display: none;
-  animation: rotate 1s linear infinite;
-}
-.btn__text-loading {
-  display: none;
-  margin-left: 8px;
-}
-.btn--loading {
-  background-color: var(--bg-elevated);
-  color: var(--accent-gold);
-  pointer-events: none;
-}
-.btn--loading .btn__text {
-  display: none;
-}
-.btn--loading .btn__spinner,
-.btn--loading .btn__text-loading {
-  display: block;
+.card-method::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
 }
 
-/* Back Button */
-.btn-back {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card-method:active {
+  transform: scale(0.96);
+  border-color: var(--accent-gold-glow);
   background: var(--bg-elevated);
-  color: var(--text-primary);
-  margin-left: -8px; /* Optically align */
 }
-.btn-back:active {
-  background: var(--border-light);
+.card-method:active::before {
+  opacity: 1;
 }
 
-/* Links */
-.link {
-  color: var(--accent-gold);
-  font-weight: 500;
-}
-.link--alt {
-  color: var(--text-secondary);
-  font-size: 0.9375rem;
-  margin-top: 24px;
-}
-
-/* Shortcut */
-.bio-shortcut {
+.card-method__icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--bg-elevated);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 16px;
-  margin-top: 16px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.9375rem;
-}
-.bio-shortcut__icon {
   color: var(--accent-gold);
+  margin-right: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-method__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-method__title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.card-method__desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
 
 /* --- 8. Forms & Inputs --- */
+
+.password-form-container {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
 
 .field {
   margin-bottom: 24px;
   position: relative;
 }
+
 .field__label {
   display: block;
   font-size: 0.875rem;
@@ -356,14 +327,16 @@ input {
 
 .field__input-wrap {
   position: relative;
-  background: var(--bg-input);
-  border-radius: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
   padding: 0 16px;
+  transition: border-color var(--transition-fast);
 }
 
 .field__input {
   width: 100%;
-  height: 56px;
+  height: 60px;
   color: var(--text-primary);
   font-size: 1rem;
 }
@@ -373,7 +346,7 @@ input {
 
 .field__border-line {
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 100%;
   height: 2px;
@@ -381,217 +354,108 @@ input {
   transform: scaleX(0);
   transform-origin: center;
   transition: transform var(--transition-smooth);
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 14px 14px;
 }
 .field__input:focus ~ .field__border-line {
   transform: scaleX(1);
 }
+.field__input-wrap:focus-within {
+  border-color: transparent;
+}
 
 .field__error {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--error);
-  font-size: 0.8125rem;
-  margin-top: 8px;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: all var(--transition-fast);
-}
-.field__error--visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.field--error .field__input-wrap {
-  box-shadow: inset 0 0 0 1px var(--error);
-}
-.field--error .field__input:focus ~ .field__border-line {
-  background: var(--error);
-}
-
-/* --- 9. Auth Methods --- */
-
-.auth-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.method {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  background: var(--bg-elevated);
-  border-radius: 16px;
-  border: 1px solid var(--border-light);
-  transition: all var(--transition-fast);
-}
-.method:active {
-  transform: scale(0.98);
-  border-color: var(--accent-gold-alpha);
-  background: var(--bg-input);
-}
-
-.method__icon-wrap {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--accent-gold-alpha);
-  color: var(--accent-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 16px;
-}
-
-.method__info {
-  flex: 1;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.method__label {
-  font-weight: 500;
-  color: var(--text-primary);
-  font-size: 1rem;
-}
-.method__desc {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-}
-.method__arrow {
-  color: var(--text-muted);
-}
-
-.method--ghost {
-  background: transparent;
-  border-color: transparent;
-  justify-content: center;
-}
-.method--ghost .method__info {
-  flex: 0 1 auto;
-  text-align: center;
-}
-.method--ghost .method__label {
-  color: var(--text-secondary);
-}
-
-/* --- 10. PIN UI --- */
-
-.pin-header {
-  flex: 1;
-  text-align: center;
-  padding-right: 32px; /* compensate back button */
-}
-.pin-header__title {
-  font-size: 1.125rem;
-  font-weight: 500;
-}
-
-.pin-dots {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin: 32px 0 48px;
-}
-.pin-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: var(--bg-elevated);
-  border: 1px solid var(--border-light);
-  transition: all var(--transition-fast);
-}
-.pin-dot--filled {
-  background-color: var(--accent-gold);
-  border-color: var(--accent-gold);
-  transform: scale(1.1);
-  box-shadow: 0 0 8px var(--accent-gold-alpha);
-}
-.pin-dot--error {
-  background-color: var(--error);
-  border-color: var(--error);
-  animation: shake 0.4s ease-in-out;
-}
-.pin-dot--success {
-  background-color: var(--success);
-  border-color: var(--success);
-}
-
-.pin-error {
-  text-align: center;
   color: var(--error);
   font-size: 0.875rem;
-  margin-top: -24px;
-  margin-bottom: 24px;
+  text-align: center;
   opacity: 0;
   transition: opacity var(--transition-fast);
 }
-.pin-error--visible {
+
+.field__error--visible {
   opacity: 1;
 }
 
-.numpad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: auto;
-  max-width: 320px;
-  margin-inline: auto;
+/* --- 9. Buttons --- */
+
+.btn {
+  position: relative;
   width: 100%;
-}
-.numpad__key {
-  height: 60px;
+  height: 56px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  background: transparent;
-  transition: background var(--transition-fast);
-}
-.numpad__key:active:not(.numpad__key--empty) {
-  background: var(--bg-elevated);
-}
-.numpad__key--delete {
-  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  overflow: hidden;
 }
 
-/* --- 11. Biometric --- */
+.btn--primary {
+  background: var(--accent-gold);
+  color: #000000;
+}
+.btn--primary:active {
+  transform: scale(0.96);
+  background: var(--accent-gold-hover);
+  box-shadow: 0 0 20px var(--accent-gold-glow);
+}
+
+.btn--scan {
+  margin-top: 48px;
+  background: transparent;
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  border-radius: 30px;
+  max-width: 280px;
+  margin-inline: auto;
+}
+.btn--scan:active {
+  background: var(--accent-gold-alpha);
+}
+
+.link {
+  color: var(--accent-gold);
+  font-weight: 500;
+}
+
+.signup-prompt {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+/* --- 10. Biometric Module --- */
 
 .bio-verify {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
+
 .bio-verify__icon-wrap {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  background: var(--bg-elevated);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent-gold);
-  margin-bottom: 24px;
-  overflow: hidden;
 }
 
 .bio-verify__pulse {
   position: absolute;
-  inset: 0;
+  inset: -10px;
   border-radius: 50%;
   border: 2px solid var(--accent-gold);
   opacity: 0;
 }
 .bio-verify--scanning .bio-verify__pulse {
-  animation: pulse 2s infinite;
+  animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bio-verify__scan-line {
@@ -601,7 +465,7 @@ input {
   width: 100%;
   height: 2px;
   background: var(--accent-gold);
-  box-shadow: 0 0 8px var(--accent-gold);
+  box-shadow: 0 0 12px var(--accent-gold);
   opacity: 0;
 }
 .bio-verify--scanning .bio-verify__scan-line {
@@ -609,19 +473,95 @@ input {
   animation: scan 2s linear infinite;
 }
 
-.bio-verify__title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
 .bio-verify__subtitle {
   color: var(--text-secondary);
   font-size: 0.9375rem;
+  margin-top: 24px;
 }
 
 .bio-verify--success .bio-verify__icon-wrap {
   background: var(--success);
+  border-color: var(--success);
   color: #000;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+}
+
+/* --- 11. PIN Module --- */
+
+.pin-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.pin-header__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-light);
+  transition: all var(--transition-fast);
+}
+.pin-dot--filled {
+  background-color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  transform: scale(1.1);
+  box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+.pin-dot--error {
+  background-color: var(--error);
+  border-color: var(--error);
+  animation: shake 0.4s ease-in-out;
+}
+
+.pin-error {
+  text-align: center;
+  color: var(--error);
+  font-size: 0.875rem;
+  min-height: 20px;
+  opacity: 0;
+  margin-bottom: 40px;
+}
+.pin-error--visible {
+  opacity: 1;
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 20px;
+  max-width: 320px;
+  margin-inline: auto;
+  margin-top: auto;
+  padding-bottom: 24px;
+}
+.numpad__key {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 36px;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  background: transparent;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.numpad__key:active:not(.numpad__key--empty) {
+  background: var(--border-light);
+  transform: scale(0.9);
+}
+.numpad__key--delete {
+  color: var(--text-secondary);
 }
 
 /* --- 12. Success State --- */
@@ -634,29 +574,30 @@ input {
 }
 
 .success-state__icon-wrap {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: var(--accent-gold);
   color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   transform: scale(0);
 }
 .step--active .success-state__icon-wrap {
-  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .success-state__title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: var(--text-primary);
 }
 .success-state__subtitle {
   color: var(--text-secondary);
+  font-size: 1.125rem;
 }
 
 /* --- 13. Animations --- */
@@ -666,38 +607,25 @@ input {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideUpSheet {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-4px); }
-  40% { transform: translateX(4px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.5); opacity: 0; }
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
 }
 
 @keyframes scan {
-  0% { top: 10%; }
-  50% { top: 90%; }
-  100% { top: 10%; }
+  0% { top: 5%; }
+  50% { top: 95%; }
+  100% { top: 5%; }
 }
 
 @keyframes popIn {
-  to { transform: scale(1); }
-}
-
-/* --- 14. Responsive safe areas --- */
-
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .bottom-sheet {
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
-  }
+  to { transform: scale(1); box-shadow: 0 0 40px var(--accent-gold-glow); }
 }

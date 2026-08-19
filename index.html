@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="description" content="PaySat — Accede a tu cuenta de banca digital internacional de forma segura">
-  <meta name="theme-color" content="#0A0A0A">
+  <meta name="theme-color" content="#050505">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>PaySat — Acceso seguro</title>
@@ -15,127 +15,35 @@
 </head>
 <body>
 
-  <!-- Premium Subtle Background Layer -->
+  <!-- Ambient Glow Background -->
   <div class="bg-layer" aria-hidden="true"></div>
 
   <div class="app" id="app">
 
-    <!-- Brand Header (Fixed at top) -->
-    <header class="app-header">
-      <div class="brand" aria-label="PaySat">
-        <svg class="brand__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path d="M10 24V10.5C10 9.11929 11.1193 8 12.5 8H17.5C20.5376 8 23 10.4624 23 13.5C23 16.5376 20.5376 19 17.5 19H12.5V24H10Z" fill="var(--accent-gold)"/>
-          <path d="M16 10.5C16 11.8807 14.8807 13 13.5 13C12.1193 13 11 11.8807 11 10.5C11 9.11929 12.1193 8 13.5 8C14.8807 8 16 9.11929 16 10.5Z" fill="#1A1A1A"/>
-          <path d="M23 13.5C23 14.8807 21.8807 16 20.5 16C19.1193 16 18 14.8807 18 13.5C18 12.1192 19.1193 11 20.5 11C21.8807 11 23 12.1192 23 13.5Z" fill="#1A1A1A"/>
-        </svg>
-        <span class="brand__text">PAY<span>SAT</span></span>
-      </div>
-    </header>
-
-    <!-- Bottom Sheet Container -->
-    <main class="bottom-sheet">
-      <div class="bottom-sheet__handle" aria-hidden="true"></div>
-
-      <!-- ===== STEP 1: METHOD SELECTION ===== -->
-      <section class="step step--active" id="stepSelection" aria-label="Selección de método de acceso">
-        
-        <div class="user-greeting">
-          <div class="user-greeting__avatar" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <h1 class="user-greeting__title">Bienvenido</h1>
-          <p class="user-greeting__subtitle">Selecciona cómo deseas ingresar</p>
+    <!-- ===== STEP 1: METHOD SELECTION (Full Screen) ===== -->
+    <section class="step step--active" id="stepSelection" aria-label="Selección de método de acceso">
+      
+      <!-- Brand Header -->
+      <header class="app-header">
+        <div class="brand" aria-label="PaySat">
+          <svg class="brand__icon" width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M10 24V10.5C10 9.11929 11.1193 8 12.5 8H17.5C20.5376 8 23 10.4624 23 13.5C23 16.5376 20.5376 19 17.5 19H12.5V24H10Z" fill="var(--accent-gold)"/>
+            <path d="M16 10.5C16 11.8807 14.8807 13 13.5 13C12.1193 13 11 11.8807 11 10.5C11 9.11929 12.1193 8 13.5 8C14.8807 8 16 9.11929 16 10.5Z" fill="#050505"/>
+            <path d="M23 13.5C23 14.8807 21.8807 16 20.5 16C19.1193 16 18 14.8807 18 13.5C18 12.1192 19.1193 11 20.5 11C21.8807 11 23 12.1192 23 13.5Z" fill="#050505"/>
+          </svg>
+          <span class="brand__text">PAY<span>SAT</span></span>
         </div>
+      </header>
 
-        <div class="step__content">
-          <div class="auth-methods" role="group" aria-label="Métodos de autenticación">
-            <!-- Módulo Biometría -->
-            <button type="button" class="method" id="btnGoBio" aria-label="Módulo Biometría">
-              <div class="method__icon-wrap">
-                <svg class="method__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 2C6.5 2 2 6.5 2 12"/>
-                  <path d="M22 12c0-5.5-4.5-10-10-10"/>
-                  <path d="M12 22c5.5 0 10-4.5 10-10"/>
-                  <path d="M2 12c0 5.5 4.5 10 10 10"/>
-                  <path d="M12 6a6 6 0 0 0-6 6"/>
-                  <path d="M18 12a6 6 0 0 0-6-6"/>
-                  <path d="M12 18a6 6 0 0 0 6-6"/>
-                  <path d="M6 12a6 6 0 0 0 6 6"/>
-                  <circle cx="12" cy="12" r="2"/>
-                </svg>
-              </div>
-              <div class="method__info">
-                <span class="method__label">Biometría</span>
-                <span class="method__desc">Face ID o Huella Digital</span>
-              </div>
-              <svg class="method__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
+      <div class="step__content step__content--center">
+        <h1 class="welcome-title">Bienvenido</h1>
+        <p class="welcome-subtitle">Selecciona cómo deseas ingresar</p>
 
-            <!-- Módulo PIN -->
-            <button type="button" class="method" id="btnGoPIN" aria-label="Módulo PIN">
-              <div class="method__icon-wrap">
-                <svg class="method__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="3" y="11" width="18" height="11" rx="2"/>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  <circle cx="12" cy="16.5" r="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-              <div class="method__info">
-                <span class="method__label">PIN de seguridad</span>
-                <span class="method__desc">Código de 6 dígitos</span>
-              </div>
-              <svg class="method__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-
-            <!-- Módulo Usuario/Contraseña -->
-            <button type="button" class="method" id="btnGoPassword" aria-label="Módulo Contraseña">
-              <div class="method__icon-wrap">
-                <svg class="method__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                  <line x1="3" y1="9" x2="21" y2="9"/>
-                  <line x1="9" y1="21" x2="9" y2="9"/>
-                </svg>
-              </div>
-              <div class="method__info">
-                <span class="method__label">Usuario y Contraseña</span>
-                <span class="method__desc">Acceso tradicional</span>
-              </div>
-              <svg class="method__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="step__bottom">
-          <p class="signup-prompt">
-            ¿Nuevo en PaySat? <button type="button" class="link">Crear cuenta</button>
-          </p>
-        </div>
-      </section>
-
-
-      <!-- ===== STEP: BIOMETRIC MODULE ===== -->
-      <section class="step" id="stepBiometric" aria-label="Módulo de Verificación biométrica">
-        <div class="step__top">
-          <button type="button" class="btn-back" id="btnBackFromBio" aria-label="Volver">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="step__content step__content--center">
-          <div class="bio-verify">
-            <div class="bio-verify__icon-wrap" id="bioIconWrap">
-              <svg class="bio-verify__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <div class="cards-container">
+          <!-- Biometric Card -->
+          <button type="button" class="card-method" id="btnGoBio" aria-label="Módulo Biometría">
+            <div class="card-method__icon-wrap">
+              <svg class="card-method__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2C6.5 2 2 6.5 2 12"/>
                 <path d="M22 12c0-5.5-4.5-10-10-10"/>
                 <path d="M12 22c5.5 0 10-4.5 10-10"/>
@@ -146,87 +54,155 @@
                 <path d="M6 12a6 6 0 0 0 6 6"/>
                 <circle cx="12" cy="12" r="2"/>
               </svg>
-              <!-- Scan lines & pulse -->
-              <div class="bio-verify__pulse"></div>
-              <div class="bio-verify__scan-line"></div>
             </div>
-            <h2 class="bio-verify__title">Escaneando...</h2>
-            <p class="bio-verify__subtitle" id="bioStatus">Mira la cámara o pon tu huella</p>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ===== STEP: PIN MODULE ===== -->
-      <section class="step" id="stepPIN" aria-label="Módulo Ingreso de PIN">
-        <div class="step__top">
-          <button type="button" class="btn-back" id="btnBackFromPIN" aria-label="Volver">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
+            <div class="card-method__info">
+              <span class="card-method__title">Biometría</span>
+              <span class="card-method__desc">Face ID o Huella Digital</span>
+            </div>
           </button>
-          <div class="pin-header">
-            <h2 class="pin-header__title">Introduce tu PIN</h2>
-          </div>
-        </div>
 
-        <div class="step__content">
-          <!-- PIN Dots -->
-          <div class="pin-dots" id="pinDots" role="status" aria-label="Dígitos ingresados">
-            <span class="pin-dot" aria-hidden="true"></span>
-            <span class="pin-dot" aria-hidden="true"></span>
-            <span class="pin-dot" aria-hidden="true"></span>
-            <span class="pin-dot" aria-hidden="true"></span>
-            <span class="pin-dot" aria-hidden="true"></span>
-            <span class="pin-dot" aria-hidden="true"></span>
-          </div>
-
-          <!-- PIN Error -->
-          <div class="pin-error" id="pinError" aria-live="polite">
-            <span>PIN incorrecto. Inténtalo de nuevo.</span>
-          </div>
-
-          <!-- Creative Numpad -->
-          <div class="numpad" role="group" aria-label="Teclado numérico">
-            <button type="button" class="numpad__key" data-key="1" aria-label="1"><span>1</span></button>
-            <button type="button" class="numpad__key" data-key="2" aria-label="2"><span>2</span></button>
-            <button type="button" class="numpad__key" data-key="3" aria-label="3"><span>3</span></button>
-            <button type="button" class="numpad__key" data-key="4" aria-label="4"><span>4</span></button>
-            <button type="button" class="numpad__key" data-key="5" aria-label="5"><span>5</span></button>
-            <button type="button" class="numpad__key" data-key="6" aria-label="6"><span>6</span></button>
-            <button type="button" class="numpad__key" data-key="7" aria-label="7"><span>7</span></button>
-            <button type="button" class="numpad__key" data-key="8" aria-label="8"><span>8</span></button>
-            <button type="button" class="numpad__key" data-key="9" aria-label="9"><span>9</span></button>
-            <div class="numpad__key numpad__key--empty" aria-hidden="true"></div>
-            <button type="button" class="numpad__key" data-key="0" aria-label="0"><span>0</span></button>
-            <button type="button" class="numpad__key numpad__key--delete" id="btnPinDelete" aria-label="Borrar dígito">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
-                <line x1="18" y1="9" x2="12" y2="15"/>
-                <line x1="12" y1="9" x2="18" y2="15"/>
+          <!-- PIN Card -->
+          <button type="button" class="card-method" id="btnGoPIN" aria-label="Módulo PIN">
+            <div class="card-method__icon-wrap">
+              <svg class="card-method__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                <circle cx="12" cy="16.5" r="1.5" fill="currentColor"/>
               </svg>
-            </button>
-          </div>
+            </div>
+            <div class="card-method__info">
+              <span class="card-method__title">PIN de seguridad</span>
+              <span class="card-method__desc">Código rápido de 6 dígitos</span>
+            </div>
+          </button>
+
+          <!-- Password Card -->
+          <button type="button" class="card-method" id="btnGoPassword" aria-label="Módulo Contraseña">
+            <div class="card-method__icon-wrap">
+              <svg class="card-method__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+            </div>
+            <div class="card-method__info">
+              <span class="card-method__title">Usuario y Contraseña</span>
+              <span class="card-method__desc">Acceso tradicional</span>
+            </div>
+          </button>
         </div>
-      </section>
+      </div>
 
+      <div class="step__bottom">
+        <p class="signup-prompt">
+          ¿Nuevo en PaySat? <button type="button" class="link">Crear cuenta</button>
+        </p>
+      </div>
+    </section>
 
-      <!-- ===== STEP: PASSWORD MODULE ===== -->
-      <section class="step" id="stepPassword" aria-label="Módulo Usuario y Contraseña">
-        <div class="step__top">
-          <button type="button" class="btn-back" id="btnBackFromPassword" aria-label="Volver">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6"/>
+    <!-- ===== STEP: BIOMETRIC MODULE ===== -->
+    <section class="step" id="stepBiometric" aria-label="Módulo de Verificación biométrica">
+      <div class="top-nav">
+        <button type="button" class="btn-back" id="btnBackFromBio" aria-label="Volver">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <span class="top-nav__title">Biometría</span>
+      </div>
+
+      <div class="step__content step__content--center">
+        <div class="bio-verify">
+          <div class="bio-verify__icon-wrap" id="bioIconWrap">
+            <svg class="bio-verify__icon" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2C6.5 2 2 6.5 2 12"/>
+              <path d="M22 12c0-5.5-4.5-10-10-10"/>
+              <path d="M12 22c5.5 0 10-4.5 10-10"/>
+              <path d="M2 12c0 5.5 4.5 10 10 10"/>
+              <path d="M12 6a6 6 0 0 0-6 6"/>
+              <path d="M18 12a6 6 0 0 0-6-6"/>
+              <path d="M12 18a6 6 0 0 0 6-6"/>
+              <path d="M6 12a6 6 0 0 0 6 6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+            <div class="bio-verify__pulse"></div>
+            <div class="bio-verify__scan-line"></div>
+          </div>
+          
+          <button type="button" class="btn btn--primary btn--scan" id="btnSimulateBio">
+            Presionar para registrar
+          </button>
+          <p class="bio-verify__subtitle" id="bioStatus">Asegúrate de estar en un lugar iluminado</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STEP: PIN MODULE ===== -->
+    <section class="step" id="stepPIN" aria-label="Módulo Ingreso de PIN">
+      <div class="top-nav">
+        <button type="button" class="btn-back" id="btnBackFromPIN" aria-label="Volver">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <span class="top-nav__title">PIN de seguridad</span>
+      </div>
+
+      <div class="step__content">
+        <div class="pin-header">
+          <h2 class="pin-header__title">Ingresa tu código</h2>
+        </div>
+
+        <div class="pin-dots" id="pinDots" role="status" aria-label="Dígitos ingresados">
+          <span class="pin-dot" aria-hidden="true"></span>
+          <span class="pin-dot" aria-hidden="true"></span>
+          <span class="pin-dot" aria-hidden="true"></span>
+          <span class="pin-dot" aria-hidden="true"></span>
+          <span class="pin-dot" aria-hidden="true"></span>
+          <span class="pin-dot" aria-hidden="true"></span>
+        </div>
+
+        <div class="pin-error" id="pinError" aria-live="polite">
+          <span>El código no coincide. Inténtalo de nuevo.</span>
+        </div>
+
+        <div class="numpad" role="group" aria-label="Teclado numérico">
+          <button type="button" class="numpad__key" data-key="1" aria-label="1"><span>1</span></button>
+          <button type="button" class="numpad__key" data-key="2" aria-label="2"><span>2</span></button>
+          <button type="button" class="numpad__key" data-key="3" aria-label="3"><span>3</span></button>
+          <button type="button" class="numpad__key" data-key="4" aria-label="4"><span>4</span></button>
+          <button type="button" class="numpad__key" data-key="5" aria-label="5"><span>5</span></button>
+          <button type="button" class="numpad__key" data-key="6" aria-label="6"><span>6</span></button>
+          <button type="button" class="numpad__key" data-key="7" aria-label="7"><span>7</span></button>
+          <button type="button" class="numpad__key" data-key="8" aria-label="8"><span>8</span></button>
+          <button type="button" class="numpad__key" data-key="9" aria-label="9"><span>9</span></button>
+          <div class="numpad__key numpad__key--empty" aria-hidden="true"></div>
+          <button type="button" class="numpad__key" data-key="0" aria-label="0"><span>0</span></button>
+          <button type="button" class="numpad__key numpad__key--delete" id="btnPinDelete" aria-label="Borrar dígito">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+              <line x1="18" y1="9" x2="12" y2="15"/>
+              <line x1="12" y1="9" x2="18" y2="15"/>
             </svg>
           </button>
-          <div class="pin-header">
-            <h2 class="pin-header__title">Ingreso manual</h2>
-          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="step__content">
+    <!-- ===== STEP: PASSWORD MODULE ===== -->
+    <section class="step" id="stepPassword" aria-label="Módulo Usuario y Contraseña">
+      <div class="top-nav">
+        <button type="button" class="btn-back" id="btnBackFromPassword" aria-label="Volver">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <span class="top-nav__title">Ingreso manual</span>
+      </div>
+
+      <div class="step__content">
+        <div class="password-form-container">
           <form id="passwordForm" novalidate autocomplete="on">
-            <!-- Username Field -->
             <div class="field" id="usernameField">
               <label class="field__label" for="usernameInput">Usuario</label>
               <div class="field__input-wrap">
@@ -244,7 +220,6 @@
               </div>
             </div>
 
-            <!-- Password Field -->
             <div class="field" id="passwordField">
               <label class="field__label" for="passwordInput">Contraseña</label>
               <div class="field__input-wrap">
@@ -260,44 +235,33 @@
               </div>
             </div>
 
-            <!-- Global Error -->
             <div class="field__error" id="passwordGlobalError" aria-live="polite" style="margin-top:-8px; margin-bottom: 24px;">
-              <svg class="field__error-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="13"/>
-                <circle cx="12" cy="16.5" r="0.5" fill="currentColor"/>
-              </svg>
               <span id="passwordGlobalErrorText"></span>
             </div>
 
             <button type="submit" class="btn btn--primary" id="btnSubmitPassword">
-              <span class="btn__text">Ingresar</span>
-              <svg class="btn__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
-                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-              <span class="btn__text-loading">Ingresando…</span>
+              <span class="btn__text">Ingresar de forma segura</span>
             </button>
           </form>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ===== STEP: SUCCESS ===== -->
-      <section class="step" id="stepSuccess" aria-label="Acceso confirmado" role="status">
-        <div class="step__content step__content--center">
-          <div class="success-state">
-            <div class="success-state__icon-wrap">
-              <svg class="success-state__icon" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </div>
-            <h2 class="success-state__title">¡Acceso Correcto!</h2>
-            <p class="success-state__subtitle">Redirigiendo a tu cuenta...</p>
+    <!-- ===== STEP: SUCCESS ===== -->
+    <section class="step" id="stepSuccess" aria-label="Acceso confirmado" role="status">
+      <div class="step__content step__content--center">
+        <div class="success-state">
+          <div class="success-state__icon-wrap">
+            <svg class="success-state__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
           </div>
+          <h2 class="success-state__title">¡Acceso Correcto!</h2>
+          <p class="success-state__subtitle">Redirigiendo a tu cuenta...</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </main>
   </div>
 
   <script type="module" src="dist/app.js"></script>
