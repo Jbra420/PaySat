@@ -4,264 +4,89 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="description" content="PaySat — Accede a tu cuenta de banca digital internacional de forma segura">
-  <meta name="theme-color" content="#0B1D2E">
+  <meta name="theme-color" content="#0A0A0A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>PaySat — Acceso seguro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
+  <!-- Premium Subtle Background Layer -->
+  <div class="bg-layer" aria-hidden="true"></div>
+
   <div class="app" id="app">
 
-    <!-- ===== STEP 1: IDENTIFIER ===== -->
-    <section class="step step--active" id="stepIdentifier" aria-label="Identificación">
+    <!-- Brand Header (Fixed at top) -->
+    <header class="app-header">
+      <div class="brand" aria-label="PaySat">
+        <svg class="brand__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M10 24V10.5C10 9.11929 11.1193 8 12.5 8H17.5C20.5376 8 23 10.4624 23 13.5C23 16.5376 20.5376 19 17.5 19H12.5V24H10Z" fill="var(--accent-gold)"/>
+          <path d="M16 10.5C16 11.8807 14.8807 13 13.5 13C12.1193 13 11 11.8807 11 10.5C11 9.11929 12.1193 8 13.5 8C14.8807 8 16 9.11929 16 10.5Z" fill="#1A1A1A"/>
+          <path d="M23 13.5C23 14.8807 21.8807 16 20.5 16C19.1193 16 18 14.8807 18 13.5C18 12.1192 19.1193 11 20.5 11C21.8807 11 23 12.1192 23 13.5Z" fill="#1A1A1A"/>
+        </svg>
+        <span class="brand__text">PAY<span>SAT</span></span>
+      </div>
+    </header>
 
-      <div class="step__top">
-        <!-- Brand -->
-        <div class="brand" aria-label="PaySat">
-          <svg class="brand__icon" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-            <rect width="28" height="28" rx="7" fill="var(--primary)"/>
-            <path d="M8.5 20V9h4.2c1.1 0 2 .25 2.6.75.6.5.9 1.2.9 2.05 0 .85-.3 1.55-.9 2.05-.6.5-1.5.75-2.6.75H11v5.4H8.5z" fill="#fff"/>
-            <circle cx="19.5" cy="10" r="2.2" fill="var(--accent)"/>
-          </svg>
-          <span class="brand__text">Pay<span>Sat</span></span>
-        </div>
+    <!-- Bottom Sheet Container -->
+    <main class="bottom-sheet">
+      <div class="bottom-sheet__handle" aria-hidden="true"></div>
 
-        <!-- Greeting -->
+      <!-- ===== STEP 1: IDENTIFIER ===== -->
+      <section class="step step--active" id="stepIdentifier" aria-label="Identificación">
+        
         <div class="greeting">
-          <h1 class="greeting__title">Bienvenido de nuevo</h1>
-          <p class="greeting__subtitle">Accede de forma segura a tu cuenta</p>
+          <h1 class="greeting__title">Bienvenido</h1>
+          <p class="greeting__subtitle">Ingresa para continuar</p>
         </div>
-      </div>
 
-      <div class="step__content">
-        <!-- Identifier Form -->
-        <form id="identifierForm" novalidate autocomplete="on">
-          <div class="field" id="identifierField">
-            <label class="field__label" for="identifierInput">
-              <svg class="field__label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M20 21a8 8 0 1 0-16 0"/>
+        <div class="step__content">
+          <!-- Identifier Form -->
+          <form id="identifierForm" novalidate autocomplete="on">
+            <div class="field" id="identifierField">
+              <label class="field__label" for="identifierInput">Usuario, correo o teléfono</label>
+              <div class="field__input-wrap">
+                <input
+                  type="text"
+                  id="identifierInput"
+                  class="field__input"
+                  placeholder="Ingresa tus datos"
+                  autocomplete="username"
+                  autocapitalize="none"
+                  spellcheck="false"
+                  aria-describedby="identifierError"
+                  aria-required="true"
+                >
+                <!-- Interactive Border Line -->
+                <div class="field__border-line"></div>
+              </div>
+              <div class="field__error" id="identifierError" aria-live="polite">
+                <svg class="field__error-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="13"/>
+                  <circle cx="12" cy="16.5" r="0.5" fill="currentColor"/>
+                </svg>
+                <span></span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="btnContinue">
+              <span class="btn__text">Continuar</span>
+              <svg class="btn__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
               </svg>
-              Usuario, correo o teléfono
-            </label>
-            <div class="field__input-wrap">
-              <input
-                type="text"
-                id="identifierInput"
-                class="field__input"
-                placeholder="Ingresa tus datos"
-                autocomplete="username"
-                autocapitalize="none"
-                spellcheck="false"
-                aria-describedby="identifierError"
-                aria-required="true"
-              >
-            </div>
-            <div class="field__error" id="identifierError" aria-live="polite">
-              <svg class="field__error-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="13"/>
-                <circle cx="12" cy="16.5" r="0.5" fill="currentColor"/>
-              </svg>
-              <span></span>
-            </div>
-          </div>
+              <span class="btn__text-loading">Verificando…</span>
+            </button>
+          </form>
 
-          <button type="submit" class="btn btn--primary" id="btnContinue">
-            <span class="btn__text">Continuar</span>
-            <svg class="btn__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
-              <path d="M12 2a10 10 0 0 1 10 10" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-            <span class="btn__text-loading">Verificando…</span>
-          </button>
-        </form>
-
-        <!-- Biometric shortcut -->
-        <button type="button" class="bio-shortcut" id="btnBioShortcut" aria-label="Acceder con biometría">
-          <svg class="bio-shortcut__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2C6.5 2 2 6.5 2 12"/>
-            <path d="M22 12c0-5.5-4.5-10-10-10"/>
-            <path d="M12 22c5.5 0 10-4.5 10-10"/>
-            <path d="M2 12c0 5.5 4.5 10 10 10"/>
-            <path d="M12 6a6 6 0 0 0-6 6"/>
-            <path d="M18 12a6 6 0 0 0-6-6"/>
-            <path d="M12 18a6 6 0 0 0 6-6"/>
-            <path d="M6 12a6 6 0 0 0 6 6"/>
-            <circle cx="12" cy="12" r="2"/>
-          </svg>
-          <span>Acceder con biometría</span>
-        </button>
-      </div>
-
-      <div class="step__bottom">
-        <p class="signup-prompt">
-          ¿No tienes una cuenta? <button type="button" class="link" id="btnSignup">Crear cuenta</button>
-        </p>
-      </div>
-    </section>
-
-    <!-- ===== STEP 2: AUTH METHODS ===== -->
-    <section class="step" id="stepMethods" aria-label="Método de autenticación">
-
-      <div class="step__top">
-        <button type="button" class="btn-back" id="btnBackMethods" aria-label="Volver">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"/>
-            <polyline points="12 19 5 12 12 5"/>
-          </svg>
-        </button>
-
-        <div class="user-greeting">
-          <div class="user-greeting__avatar" id="userAvatar" aria-hidden="true">A</div>
-          <h2 class="user-greeting__title">Hola, <span id="userName">Alejandro</span></h2>
-          <p class="user-greeting__subtitle">¿Cómo quieres acceder?</p>
-        </div>
-      </div>
-
-      <div class="step__content">
-        <div class="auth-methods" role="group" aria-label="Métodos de autenticación">
-          <button type="button" class="method" id="btnMethodBio" aria-label="Usar biometría">
-            <div class="method__icon-wrap">
-              <svg class="method__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 2C6.5 2 2 6.5 2 12"/>
-                <path d="M22 12c0-5.5-4.5-10-10-10"/>
-                <path d="M12 22c5.5 0 10-4.5 10-10"/>
-                <path d="M2 12c0 5.5 4.5 10 10 10"/>
-                <path d="M12 6a6 6 0 0 0-6 6"/>
-                <path d="M18 12a6 6 0 0 0-6-6"/>
-                <path d="M12 18a6 6 0 0 0 6-6"/>
-                <path d="M6 12a6 6 0 0 0 6 6"/>
-                <circle cx="12" cy="12" r="2"/>
-              </svg>
-            </div>
-            <div class="method__info">
-              <span class="method__label">Usar biometría</span>
-              <span class="method__desc">Face ID o huella</span>
-            </div>
-            <svg class="method__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
-
-          <button type="button" class="method" id="btnMethodPIN" aria-label="Usar PIN">
-            <div class="method__icon-wrap">
-              <svg class="method__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="11" width="18" height="11" rx="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                <circle cx="12" cy="16.5" r="1.5" fill="currentColor"/>
-              </svg>
-            </div>
-            <div class="method__info">
-              <span class="method__label">Usar PIN</span>
-              <span class="method__desc">6 dígitos</span>
-            </div>
-            <svg class="method__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
-
-          <button type="button" class="method method--muted" id="btnMethodOther" aria-label="Otro método">
-            <div class="method__icon-wrap">
-              <svg class="method__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="5" cy="12" r="1.5"/>
-                <circle cx="12" cy="12" r="1.5"/>
-                <circle cx="19" cy="12" r="1.5"/>
-              </svg>
-            </div>
-            <div class="method__info">
-              <span class="method__label">Otro método</span>
-              <span class="method__desc">Más opciones</span>
-            </div>
-            <svg class="method__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== STEP 3: PIN ===== -->
-    <section class="step" id="stepPIN" aria-label="Ingreso de PIN">
-
-      <div class="step__top">
-        <button type="button" class="btn-back" id="btnBackPIN" aria-label="Volver">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"/>
-            <polyline points="12 19 5 12 12 5"/>
-          </svg>
-        </button>
-
-        <div class="pin-header">
-          <svg class="pin-header__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <h2 class="pin-header__title">Introduce tu PIN</h2>
-        </div>
-      </div>
-
-      <div class="step__content">
-        <!-- PIN Dots -->
-        <div class="pin-dots" id="pinDots" role="status" aria-label="Dígitos ingresados">
-          <span class="pin-dot" aria-hidden="true"></span>
-          <span class="pin-dot" aria-hidden="true"></span>
-          <span class="pin-dot" aria-hidden="true"></span>
-          <span class="pin-dot" aria-hidden="true"></span>
-          <span class="pin-dot" aria-hidden="true"></span>
-          <span class="pin-dot" aria-hidden="true"></span>
-        </div>
-
-        <!-- PIN Error -->
-        <div class="pin-error" id="pinError" aria-live="polite">
-          <span>PIN incorrecto. Inténtalo de nuevo.</span>
-        </div>
-
-        <!-- Numpad -->
-        <div class="numpad" role="group" aria-label="Teclado numérico">
-          <button type="button" class="numpad__key" data-key="1" aria-label="1">1</button>
-          <button type="button" class="numpad__key" data-key="2" aria-label="2">2</button>
-          <button type="button" class="numpad__key" data-key="3" aria-label="3">3</button>
-          <button type="button" class="numpad__key" data-key="4" aria-label="4">4</button>
-          <button type="button" class="numpad__key" data-key="5" aria-label="5">5</button>
-          <button type="button" class="numpad__key" data-key="6" aria-label="6">6</button>
-          <button type="button" class="numpad__key" data-key="7" aria-label="7">7</button>
-          <button type="button" class="numpad__key" data-key="8" aria-label="8">8</button>
-          <button type="button" class="numpad__key" data-key="9" aria-label="9">9</button>
-          <div class="numpad__key numpad__key--empty" aria-hidden="true"></div>
-          <button type="button" class="numpad__key" data-key="0" aria-label="0">0</button>
-          <button type="button" class="numpad__key numpad__key--delete" id="btnPinDelete" aria-label="Borrar dígito">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
-              <line x1="18" y1="9" x2="12" y2="15"/>
-              <line x1="12" y1="9" x2="18" y2="15"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== STEP 4: BIOMETRIC ===== -->
-    <section class="step" id="stepBiometric" aria-label="Verificación biométrica">
-
-      <div class="step__top">
-        <button type="button" class="btn-back" id="btnBackBio" aria-label="Volver">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"/>
-            <polyline points="12 19 5 12 12 5"/>
-          </svg>
-        </button>
-      </div>
-
-      <div class="step__content step__content--center">
-        <div class="bio-verify">
-          <div class="bio-verify__icon-wrap" id="bioIconWrap">
-            <svg class="bio-verify__icon" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <!-- Biometric shortcut -->
+          <button type="button" class="bio-shortcut" id="btnBioShortcut" aria-label="Acceder con biometría">
+            <svg class="bio-shortcut__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 2C6.5 2 2 6.5 2 12"/>
               <path d="M22 12c0-5.5-4.5-10-10-10"/>
               <path d="M12 22c5.5 0 10-4.5 10-10"/>
@@ -272,32 +97,192 @@
               <path d="M6 12a6 6 0 0 0 6 6"/>
               <circle cx="12" cy="12" r="2"/>
             </svg>
-            <!-- Pulse ring animation -->
-            <div class="bio-verify__pulse"></div>
-          </div>
-          <h2 class="bio-verify__title">Confirma tu identidad</h2>
-          <p class="bio-verify__subtitle" id="bioStatus">Usa Face ID o tu huella digital</p>
+            <span>Acceso rápido</span>
+          </button>
         </div>
 
-        <button type="button" class="link link--alt" id="btnBioFallback">Usar PIN en su lugar</button>
-      </div>
-    </section>
+        <div class="step__bottom">
+          <p class="signup-prompt">
+            ¿Nuevo en PaySat? <button type="button" class="link" id="btnSignup">Crear cuenta</button>
+          </p>
+        </div>
+      </section>
 
-    <!-- ===== STEP 5: SUCCESS ===== -->
-    <section class="step" id="stepSuccess" aria-label="Acceso confirmado" role="status">
-      <div class="step__content step__content--center">
-        <div class="success-state">
-          <div class="success-state__icon-wrap">
-            <svg class="success-state__icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"/>
+      <!-- ===== STEP 2: AUTH METHODS ===== -->
+      <section class="step" id="stepMethods" aria-label="Método de autenticación">
+        
+        <div class="step__top">
+          <button type="button" class="btn-back" id="btnBackMethods" aria-label="Volver">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
             </svg>
-          </div>
-          <h2 class="success-state__title">Acceso confirmado</h2>
-          <p class="success-state__subtitle">Preparando tu cuenta…</p>
+          </button>
         </div>
-      </div>
-    </section>
 
+        <div class="user-greeting">
+          <div class="user-greeting__avatar" id="userAvatar" aria-hidden="true">A</div>
+          <h2 class="user-greeting__title">Hola, <span id="userName">Alejandro</span></h2>
+          <p class="user-greeting__subtitle">Verifica tu identidad</p>
+        </div>
+
+        <div class="step__content">
+          <div class="auth-methods" role="group" aria-label="Métodos de autenticación">
+            <button type="button" class="method" id="btnMethodBio" aria-label="Usar biometría">
+              <div class="method__icon-wrap">
+                <svg class="method__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2C6.5 2 2 6.5 2 12"/>
+                  <path d="M22 12c0-5.5-4.5-10-10-10"/>
+                  <path d="M12 22c5.5 0 10-4.5 10-10"/>
+                  <path d="M2 12c0 5.5 4.5 10 10 10"/>
+                  <path d="M12 6a6 6 0 0 0-6 6"/>
+                  <path d="M18 12a6 6 0 0 0-6-6"/>
+                  <path d="M12 18a6 6 0 0 0 6-6"/>
+                  <path d="M6 12a6 6 0 0 0 6 6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                </svg>
+              </div>
+              <div class="method__info">
+                <span class="method__label">Biometría</span>
+                <span class="method__desc">Acceso inmediato</span>
+              </div>
+              <svg class="method__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+
+            <button type="button" class="method" id="btnMethodPIN" aria-label="Usar PIN">
+              <div class="method__icon-wrap">
+                <svg class="method__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  <circle cx="12" cy="16.5" r="1.5" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="method__info">
+                <span class="method__label">PIN de seguridad</span>
+                <span class="method__desc">Código de 6 dígitos</span>
+              </div>
+              <svg class="method__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+
+            <button type="button" class="method method--ghost" id="btnMethodOther" aria-label="Otro método">
+              <div class="method__info">
+                <span class="method__label">Otras opciones de acceso</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== STEP 3: PIN ===== -->
+      <section class="step" id="stepPIN" aria-label="Ingreso de PIN">
+        
+        <div class="step__top">
+          <button type="button" class="btn-back" id="btnBackPIN" aria-label="Volver">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <div class="pin-header">
+            <h2 class="pin-header__title">Introduce tu PIN</h2>
+          </div>
+        </div>
+
+        <div class="step__content">
+          <!-- PIN Dots -->
+          <div class="pin-dots" id="pinDots" role="status" aria-label="Dígitos ingresados">
+            <span class="pin-dot" aria-hidden="true"></span>
+            <span class="pin-dot" aria-hidden="true"></span>
+            <span class="pin-dot" aria-hidden="true"></span>
+            <span class="pin-dot" aria-hidden="true"></span>
+            <span class="pin-dot" aria-hidden="true"></span>
+            <span class="pin-dot" aria-hidden="true"></span>
+          </div>
+
+          <!-- PIN Error -->
+          <div class="pin-error" id="pinError" aria-live="polite">
+            <span>PIN incorrecto. Inténtalo de nuevo.</span>
+          </div>
+
+          <!-- Creative Numpad -->
+          <div class="numpad" role="group" aria-label="Teclado numérico">
+            <button type="button" class="numpad__key" data-key="1" aria-label="1"><span>1</span></button>
+            <button type="button" class="numpad__key" data-key="2" aria-label="2"><span>2</span></button>
+            <button type="button" class="numpad__key" data-key="3" aria-label="3"><span>3</span></button>
+            <button type="button" class="numpad__key" data-key="4" aria-label="4"><span>4</span></button>
+            <button type="button" class="numpad__key" data-key="5" aria-label="5"><span>5</span></button>
+            <button type="button" class="numpad__key" data-key="6" aria-label="6"><span>6</span></button>
+            <button type="button" class="numpad__key" data-key="7" aria-label="7"><span>7</span></button>
+            <button type="button" class="numpad__key" data-key="8" aria-label="8"><span>8</span></button>
+            <button type="button" class="numpad__key" data-key="9" aria-label="9"><span>9</span></button>
+            <div class="numpad__key numpad__key--empty" aria-hidden="true"></div>
+            <button type="button" class="numpad__key" data-key="0" aria-label="0"><span>0</span></button>
+            <button type="button" class="numpad__key numpad__key--delete" id="btnPinDelete" aria-label="Borrar dígito">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+                <line x1="18" y1="9" x2="12" y2="15"/>
+                <line x1="12" y1="9" x2="18" y2="15"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== STEP 4: BIOMETRIC ===== -->
+      <section class="step" id="stepBiometric" aria-label="Verificación biométrica">
+        
+        <div class="step__top">
+          <button type="button" class="btn-back" id="btnBackBio" aria-label="Volver">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="step__content step__content--center">
+          <div class="bio-verify">
+            <div class="bio-verify__icon-wrap" id="bioIconWrap">
+              <svg class="bio-verify__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2C6.5 2 2 6.5 2 12"/>
+                <path d="M22 12c0-5.5-4.5-10-10-10"/>
+                <path d="M12 22c5.5 0 10-4.5 10-10"/>
+                <path d="M2 12c0 5.5 4.5 10 10 10"/>
+                <path d="M12 6a6 6 0 0 0-6 6"/>
+                <path d="M18 12a6 6 0 0 0-6-6"/>
+                <path d="M12 18a6 6 0 0 0 6-6"/>
+                <path d="M6 12a6 6 0 0 0 6 6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              <!-- Scan lines & pulse -->
+              <div class="bio-verify__pulse"></div>
+              <div class="bio-verify__scan-line"></div>
+            </div>
+            <h2 class="bio-verify__title">Confirma tu identidad</h2>
+            <p class="bio-verify__subtitle" id="bioStatus">Face ID o huella digital</p>
+          </div>
+
+          <button type="button" class="link link--alt" id="btnBioFallback">Ingresar con PIN</button>
+        </div>
+      </section>
+
+      <!-- ===== STEP 5: SUCCESS ===== -->
+      <section class="step" id="stepSuccess" aria-label="Acceso confirmado" role="status">
+        <div class="step__content step__content--center">
+          <div class="success-state">
+            <div class="success-state__icon-wrap">
+              <svg class="success-state__icon" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h2 class="success-state__title">¡Listo!</h2>
+            <p class="success-state__subtitle">Redirigiendo a tu cuenta</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
   </div>
 
   <script type="module" src="dist/app.js"></script>
