@@ -4,7 +4,7 @@
   "description": "PaySat — Mobile Login Prototype",
   "private": true,
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc && rm -rf public && mkdir -p public && cp index.html public/ && cp -R css public/ && cp -R dist public/ && cp -R assets public/",
     "dev": "npx tsc --watch"
   },
   "devDependencies": {
