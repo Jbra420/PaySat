@@ -1,5 +1,13 @@
 {
+  "name": "paysat-login",
+  "version": "1.0.0",
+  "description": "PaySat — Mobile Login Prototype",
+  "private": true,
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "npx tsc --watch"
+  },
   "devDependencies": {
-    "typescript": "^7.0.2"
+    "typescript": "^5.5.0"
   }
 }
