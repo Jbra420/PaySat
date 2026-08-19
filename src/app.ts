@@ -118,15 +118,12 @@ function handleBiometricSimulation() {
   bioStatus.textContent = 'Verificando identidad...';
   btnSimulateBio.style.display = 'none';
 
+  // Solo hace la animación visual pero no hace nada más
   setTimeout(() => {
     bioIconWrap.parentElement?.classList.remove('bio-verify--scanning');
-    bioIconWrap.parentElement?.classList.add('bio-verify--success');
-    bioStatus.textContent = 'Identidad confirmada';
-    
-    setTimeout(() => {
-      navigateToStep('success');
-    }, 800);
-  }, 1500);
+    bioStatus.textContent = 'Registro simulado (Visual)';
+    // No redirige a ninguna parte como se solicitó
+  }, 2000);
 }
 
 // --- PIN Logic ---
