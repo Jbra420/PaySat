@@ -5,7 +5,7 @@
 
 // --- Types ---
 
-type LoginState = 'selection' | 'biometric' | 'pin' | 'password' | 'success';
+type LoginState = 'selection' | 'biometric' | 'pin' | 'password';
 
 interface AppState {
   currentStep: LoginState;
@@ -27,7 +27,6 @@ const stepSelection = qs<HTMLElement>('#stepSelection');
 const stepBiometric = qs<HTMLElement>('#stepBiometric');
 const stepPIN = qs<HTMLElement>('#stepPIN');
 const stepPassword = qs<HTMLElement>('#stepPassword');
-const stepSuccess = qs<HTMLElement>('#stepSuccess');
 
 // Selection Actions
 const btnGoBio = qs<HTMLButtonElement>('#btnGoBio');
@@ -71,7 +70,6 @@ const stepMap: Record<LoginState, HTMLElement> = {
   biometric: stepBiometric,
   pin: stepPIN,
   password: stepPassword,
-  success: stepSuccess,
 };
 
 function navigateToStep(next: LoginState, reverse = false) {
@@ -153,13 +151,9 @@ function handlePinDigit(digit: string) {
 
   state.pinDigits += digit;
   updatePinUI();
-
-  if (state.pinDigits.length === PIN_LENGTH) {
-    // Automatically accept any 6 digits to keep the flow uninterrupted
-    setTimeout(() => {
-      navigateToStep('success');
-    }, 300);
-  }
+  
+  // Como se solicitó, no forzar a una pantalla de éxito.
+  // El usuario puede seguir viendo los puntos llenos o borrar.
 }
 
 function handleDeletePin() {
@@ -199,12 +193,8 @@ function handlePasswordSubmit(e: Event) {
     return;
   }
 
-  // Simulate success
-  btnSubmitPassword.querySelector('.btn__text')!.textContent = 'Verificando...';
-  
-  setTimeout(() => {
-    navigateToStep('success');
-  }, 800);
+  // Simulate success text without navigating away
+  btnSubmitPassword.querySelector('.btn__text')!.textContent = 'Acceso Simulado';
 }
 
 // --- Event Listeners ---
